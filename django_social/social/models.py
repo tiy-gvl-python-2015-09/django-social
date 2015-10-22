@@ -1,9 +1,11 @@
 from django.db import models
 from django.views.generic import View
 
+
 #https://roll20.net/
 
 __author__ = 'MatthewBarnette'
+
 
 class UserName(models.Model):
 
@@ -14,8 +16,9 @@ class UserName(models.Model):
     first_name = models.CharField(max_length=25)
     last_name = models.CharField(max_length=25)
     email = models.TextField(max_length=50)
+    follows = models.ManyToManyField('self', related_name='game_follows', symmetrical=False)
 
-class character(models.Model):
+class Character(models.Model):
 
     def __str__(self):
         return self.name
@@ -27,7 +30,7 @@ class character(models.Model):
     character_sheet = models.FileField()
 
 
-class game(models.Model):
+class Game(models.Model):
 
     def __str__(self):
         return self.name
