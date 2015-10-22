@@ -13,10 +13,12 @@ class UserName(models.Model):
         return self.username
 
     username = models.TextField(max_length=50)
+    photo = models.ImageField()
     first_name = models.CharField(max_length=25)
     last_name = models.CharField(max_length=25)
-    email = models.TextField(max_length=50)
+    email = models.CharField(max_length=50)
     follows = models.ManyToManyField('self', related_name='game_follows', symmetrical=False)
+    subscription = models.TextField(max_length=15)
 
 class Character(models.Model):
 
@@ -36,6 +38,7 @@ class Game(models.Model):
         return self.name
 
     name = models.CharField(max_length=30)
+    photo = models.ImageField()
     playing = models.TextField(max_length=25)
     description = models.TextField(max_length=250)
     frequency = models.CharField(max_length=10)
@@ -46,6 +49,14 @@ class Game(models.Model):
     new_players_welcome = models.BinaryField()
     mature_content = models.BinaryField()
     players = models.DictWrapper()
-    map = models.ImageField()
     owner = models.ForeignKey(UserName)
 
+
+class Map(models.Model):
+
+    def __str__(self):
+        return self.name
+
+    name = models.CharField(max_length=25)
+    map = models.ImageField()
+    owner = models.ForeignKey(UserName)
