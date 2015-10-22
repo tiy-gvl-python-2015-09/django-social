@@ -6,7 +6,7 @@ class Person(models.Model):
     email = models.EmailField()
     password = models.CharField(max_length=50)
     photo = models.ImageField()
-    connections = models.ManyToManyField(self)
+    connections = models.ManyToManyField("self")
     skills = models.TextField()
 
 
